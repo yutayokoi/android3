@@ -1,5 +1,6 @@
 package com.example.yuta.tsubuyakiapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -65,12 +66,28 @@ public class DaoTsubuyaki {
         return listTsubuyaki;
     }
 
-    
+    /**
+     * テーブルにデータを追加する
+     * 書き込み専用でデータベースにアクセスする
+     */
+    public static long insert(Context context, String comment) {
+        SQLiteDatabase db = getWritableDB(context);
 
-    /** データベースにアクセス */
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_COMMENT, comment);
+
+        return db.insert(TABLE_NAME, null, values);
+    }
+
+    /** データベースにアクセス:読み込み専用 */
     private static SQLiteDatabase getReadableDB(Context context) {
         DatabaseOpenHelper helper = new DatabaseOpenHelper(context);
         return helper.getReadableDatabase();
     }
 
+    /** データベースにアクセス:書き込み専用 */
+    private static SQLiteDatabase getWritableDB(Context context) {
+        DatabaseOpenHelper helper = new DatabaseOpenHelper(context);
+        return helper.getWritableDatabase();
+    }
 }
