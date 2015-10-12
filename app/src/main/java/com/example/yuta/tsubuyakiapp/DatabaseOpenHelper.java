@@ -10,27 +10,30 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
-    /** データベース名 */
+    // ----------fields----------
+
+    /** データベース名の指定 */
     private static final String DB_NAME = "tsubuyaki.db";
 
-    /** データベースのバージョン */
+    /** データベースのバージョン指定 */
     private static final int DB_VERSION = 1;
 
+    // ----------constructor----------
+
     public DatabaseOpenHelper(Context context) {
-        /** スーパークラスのコンストラクタを呼び出す */
         super(context, DB_NAME, null, DB_VERSION);
     }
 
+    // ----------methods----------
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-        /** 最初にデータベースが作られる時に呼ばれるメソッド */
-        /** SQLiteDatabase:データベースの実体 */
-
+        // テーブル作成
+        db.execSQL(DaoTsubuyaki.create());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        /** データベースが更新された時に呼ばれるメソッド */
-
+        // データベースに変更が生じた場合は、ここに処理を記述する
     }
 }
