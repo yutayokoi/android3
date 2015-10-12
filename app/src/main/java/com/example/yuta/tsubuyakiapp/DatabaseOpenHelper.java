@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by yuta on 15/10/12.
+ * データベースを管理したり、テーブルを作成したりするクラス
  */
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
