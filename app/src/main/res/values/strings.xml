@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">TsubuyakiApp</string>
+    <string name="app_name">つぶやきアプリ</string>
+    <string name="commit">つぶやく</string>
 </resources>
