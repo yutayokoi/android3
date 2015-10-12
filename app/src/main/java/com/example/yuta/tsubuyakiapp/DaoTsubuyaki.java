@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yuta on 15/10/12.
@@ -17,19 +18,20 @@ import java.util.ArrayList;
  */
 public class DaoTsubuyaki {
 
+    // ----------fields----------
+
     /** テーブル名 */
     public static String TABLE_NAME = "tsubuyaki";
-
-    /**
-     * ID(項目名)
-     * _がついているのは命名規則
-     */
+    /** ID */
     public static String COLUMN_ID = "_id";
-
-    /** コメント(項目名) */
+    /** コメント */
     public static String COLUMN_COMMENT = "comment";
 
-    /** テーブルを作成する */
+    // ----------methods----------
+
+    /**
+     * テーブルを作成する
+     */
     public static String create() {
         return "create table " + TABLE_NAME + "(" +
                 COLUMN_ID + " integer primary key autoincrement not null, " +
@@ -38,39 +40,34 @@ public class DaoTsubuyaki {
     }
 
     /**
-     * テーブルからデータをデータを取得する処理
-     * 全てのデータを取得する
+     * テーブルからすべてのデータを取得
      */
-    public static ArrayList<String> findAll(Context context) {
-        /** データベースにアクセスする */
+    public static List<String> findAll(Context context) {
+        // データベース取得
         SQLiteDatabase db = getReadableDB(context);
 
-        /** <String> ジェネリックス この配列には文字列しか入らない */
-        ArrayList<String> listTsubuyaki = new ArrayList<String>();
+        List<String> listTsubuyaki = new ArrayList<String>();
 
-        Cursor cursor = db.rawQuery("select * from " + TABLE_NAME + " order by " + COLUMN_ID, null);
+        // テーブルからすべてのデータを取得
+        Cursor cursor = db.rawQuery("select * from " + TABLE_NAME +
+                " order by " + COLUMN_ID, null);
 
-        /**
-         * cursor → ArrayListにデータを移す
-         * cuesorのデータ(テーブルのデータ)が空の時、false
-         */
+        // データが存在する限り、Listにデータを追加し続ける
         if (cursor.moveToFirst()) {
-            /** データを移す処理 */
             do {
-                /** idが項目0番目、commentが項目1番目 */
                 listTsubuyaki.add(cursor.getString(1));
             } while (cursor.moveToNext());
         }
-
         cursor.close();
+
         return listTsubuyaki;
     }
 
     /**
-     * テーブルにデータを追加する
-     * 書き込み専用でデータベースにアクセスする
+     * テーブルにデータを追加
      */
     public static long insert(Context context, String comment) {
+        // データベース取得
         SQLiteDatabase db = getWritableDB(context);
 
         ContentValues values = new ContentValues();
@@ -79,13 +76,17 @@ public class DaoTsubuyaki {
         return db.insert(TABLE_NAME, null, values);
     }
 
-    /** データベースにアクセス:読み込み専用 */
+    /**
+     * 読み取り専用でデータベースを取得
+     */
     private static SQLiteDatabase getReadableDB(Context context) {
         DatabaseOpenHelper helper = new DatabaseOpenHelper(context);
         return helper.getReadableDatabase();
     }
 
-    /** データベースにアクセス:書き込み専用 */
+    /**
+     * 書き込み可能でデータベースを取得
+     */
     private static SQLiteDatabase getWritableDB(Context context) {
         DatabaseOpenHelper helper = new DatabaseOpenHelper(context);
         return helper.getWritableDatabase();
