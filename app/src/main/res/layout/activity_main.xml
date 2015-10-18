@@ -6,22 +6,24 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <!--つぶやき入力用-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <!--layout_weight: 横幅の比率-->
+        <!--layout_weightを指定する場合、layout_width="0dp"とする-->
         <EditText
             android:id="@+id/editText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="3" />
 
         <Button
             android:id="@+id/commitButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/commit" />
     </LinearLayout>
 
