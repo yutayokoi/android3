@@ -1,7 +1,8 @@
 package com.example.yuta.tsubuyakiapp;
 
 /**
- * Created by yuta on 15/10/12.
+ * DTOクラス
+ * Created by yuta on 2015/10/07.
  */
 public class DtoTsubuyaki {
     /** ID */
