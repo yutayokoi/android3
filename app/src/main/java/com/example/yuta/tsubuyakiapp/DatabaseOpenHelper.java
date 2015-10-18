@@ -5,8 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by yuta on 15/10/12.
- * データベースを管理したり、テーブルを作成したりするクラス
+ * データベースのバージョン管理、オープン、テーブルの作成・更新などを行うクラス
+ * Created by Hitoshi on 2015/10/07.
  */
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
@@ -28,7 +28,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // テーブル作成
+        // データベース初回作成時にテーブル作成
         db.execSQL(DaoTsubuyaki.create());
     }
 
