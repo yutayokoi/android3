@@ -3,10 +3,13 @@ package com.example.yuta.tsubuyakiapp;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+/**
+ * メインアクティビティ
+ * つぶやきアプリのメインプログラム
+ */
 public class MainActivity extends AppCompatActivity {
 
     // ----------fields----------
@@ -27,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listView);
         editText = (EditText) findViewById(R.id.editText);
 
-        // ArrayAdapterを作成し、ListViewにデータをセットする
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, DaoTsubuyaki.findAll(getApplicationContext()));
+        // AdapterListTsubuyakiを作成し、ListViewにデータをセットする
+        AdapterListTsubuyaki adapter = new AdapterListTsubuyaki(
+                getApplicationContext(), R.layout.list_tsubuyaki, DaoTsubuyaki.findAll(getApplicationContext()));
         listView.setAdapter(adapter);
 
         // つぶやきボタンにリスナーを設定する
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
      * ListViewを更新
      */
     private void updateListView() {
-        ArrayAdapter<String> adapter = (ArrayAdapter<String>) listView.getAdapter();
+        AdapterListTsubuyaki adapter = (AdapterListTsubuyaki) listView.getAdapter();
         adapter.clear();
         adapter.addAll(DaoTsubuyaki.findAll(getApplicationContext()));
     }
