@@ -6,15 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by yuta on 15/10/12.
- * データベースに対しての処理をまとめたクラス
- * テーブル追加、テーブルからデータ取得、追加などの処理をまとめてある
- * OpenHelper:DBに対しての処理
- * Dao:テーブルに対しての処理
- * フィールド、メソッドともにstaticがつく、オブジェクトをつくらない
+ * DAOクラス
+ * Created by yuta on 2015/10/07.
  */
 public class DaoTsubuyaki {
 
@@ -42,11 +37,11 @@ public class DaoTsubuyaki {
     /**
      * テーブルからすべてのデータを取得
      */
-    public static List<String> findAll(Context context) {
+    public static ArrayList<DtoTsubuyaki> findAll(Context context) {
         // データベース取得
         SQLiteDatabase db = getReadableDB(context);
 
-        List<String> listTsubuyaki = new ArrayList<String>();
+        ArrayList<DtoTsubuyaki> listTsubuyaki = new ArrayList<DtoTsubuyaki>();
 
         // テーブルからすべてのデータを取得
         Cursor cursor = db.rawQuery("select * from " + TABLE_NAME +
@@ -55,7 +50,10 @@ public class DaoTsubuyaki {
         // データが存在する限り、Listにデータを追加し続ける
         if (cursor.moveToFirst()) {
             do {
-                listTsubuyaki.add(cursor.getString(1));
+                DtoTsubuyaki dto = new DtoTsubuyaki();
+                dto.id = cursor.getLong(0);
+                dto.comment = cursor.getString(1);
+                listTsubuyaki.add(dto);
             } while (cursor.moveToNext());
         }
         cursor.close();
