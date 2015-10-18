@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <!--ID-->
+    <TextView
+        android:id="@+id/idTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/textview_margin"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/listTextColor" />
+
+    <!--コメント-->
+    <TextView
+        android:id="@+id/commentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/listTextColor" />
 
 </LinearLayout>
